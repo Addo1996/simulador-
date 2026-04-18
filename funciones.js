@@ -1,9 +1,16 @@
 //AQUI TODA LA LOGICA DE LAS FUNCIONES DEL NEGOCIO
-function calcularDisponible(ingresos,egresos){
-    let valorDisponible=0;
-    valorDisponible=ingresos-egresos;
-    if (valorDisponible<0){
+function calcularDisponible(ingresos, egresos){
+    let disponible = ingresos - egresos;
+    if (disponible < 0){
         return 0;
     }
-    return valorDisponible;
+    return disponible;
+}
+
+function calcularCapacidadPago(montoDisponible){
+    return montoDisponible * 0.5;
+}
+
+function calcularInteresSimple(monto, tasa, plazo){
+    return monto * (tasa / 100) * plazo;
 }

@@ -13,4 +13,29 @@ function calcular(){
     valorDisponibleFloat=calcularDisponible(ingresosFloat,egresosFloat);
     total=document.getElementById("spnDisponible");
     total.innerText=valorDisponibleFloat
+
+    let capacidadPago;
+    capacidadPago = calcularCapacidadPago(valorDisponibleFloat);
+
+    let cmpCapacidad = document.getElementById("spnCapacidadPago");
+    cmpCapacidad.innerText = capacidadPago.toFixed(2);
+    let monto, plazo, tasa 
+
+    let cmpMonto = document.getElementById("txtMonto");
+    let cmpPlazo = document.getElementById("txtPlazo");
+    let cmpTasa = document.getElementById("txtTasaInteres");
+    monto=parseFloat(cmpMonto.value);
+    plazo=parseFloat(cmpPlazo.value);
+    tasa=parseFloat(cmpTasa.value);
+    if (isNaN(monto) || isNaN(plazo) || isNaN(tasa)) {
+    alert("Ingrese datos válidos en crédito");
+    return;
+}
+
+    let interes;
+    interes = calcularInteresSimple(monto, tasa, plazo);
+
+    let cmpInteres = document.getElementById("spnInteresPagar");
+    cmpInteres.innerText = interes.toFixed(2);
+
 }
