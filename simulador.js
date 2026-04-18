@@ -51,4 +51,18 @@ function calcular(){
     let cmpCuota = document.getElementById("spnCuotaMensual");
     cmpCuota.innerText = cuota.toFixed(2);
 
+    let aprobado;
+
+    aprobado = aprobarCredito(capacidadPago, cuota);
+
+    let cmpEstado = document.getElementById("spnEstadoCredito");
+
+    if (aprobado){
+    cmpEstado.innerText = "CRÉDITO APROBADO";
+    cmpEstado.style.color = "green";
+    } else {
+    cmpEstado.innerText = "CRÉDITO RECHAZADO";
+    cmpEstado.style.color = "red";
+    }
+
 }
