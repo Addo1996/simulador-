@@ -1,0 +1,11 @@
+Prompt 1:
+Haz mi página responsive usando solo HTML y CSS sin cambiar IDs.
+
+Prompt 2:
+Mejora el diseño con estilo profesional tipo app bancaria.
+
+Prompt 3:
+Agrega un fondo con imagen y efecto moderno.
+
+Prompt 4:
+Optimiza el diseño para celulares y tablets.
