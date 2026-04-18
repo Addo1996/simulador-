@@ -1,70 +1,141 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
+
+    background-image: url("dinero1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 400px;
-    margin: 40px auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    color: #1e293b;
 }
 
+/* CONTENEDOR */
+.container {
+    width: 100%;
+    max-width: 420px;
+
+    background-color: rgba(255, 255, 255, 0.9); /* transparencia */
+    backdrop-filter: blur(5px); /* efecto glass (opcional pro) */
+
+    padding: 25px;
+    border-radius: 15px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+/* TITULOS */
 h1 {
     text-align: center;
     margin-bottom: 20px;
+    color: #0f172a;
 }
 
 h2 {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
+    color: #475569;
 }
 
+/* LABELS */
 label {
     display: block;
-    margin-top: 10px;
-    font-weight: bold;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #64748b;
 }
 
+/* INPUTS */
 input {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+
+    border-radius: 8px;
+    border: 1px solid #cbd5f5;
+
+    font-size: 14px;
 }
 
+/* RESULTADOS */
 p {
     margin-top: 10px;
+    font-size: 14px;
 }
 
 span {
     font-weight: bold;
-    color: #2c3e50;
+    color: #0f172a;
 }
 
+/* BOTONES */
 .buttons {
     margin-top: 20px;
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
 }
 
 button {
-    width: 48%;
-    padding: 10px;
+    flex: 1;
+    padding: 12px;
+
     border: none;
-    border-radius: 5px;
-    background-color: #3498db;
+    border-radius: 8px;
+
+    background-color: #2563eb;
     color: white;
     font-weight: bold;
+
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #1d4ed8;
+}
+
+/* 📱 CELULARES */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input {
+        font-size: 16px; /* evita zoom en iPhone */
+    }
+}
+
+/* 📲 TABLETS */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        max-width: 500px;
+    }
 }
