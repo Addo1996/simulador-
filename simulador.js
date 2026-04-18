@@ -37,5 +37,18 @@ function calcular(){
 
     let cmpInteres = document.getElementById("spnInteresPagar");
     cmpInteres.innerText = interes.toFixed(2);
+    let totalPagar;
+
+    totalPagar = calcularTotalPagar(monto, interes);
+
+    let cmpTotal = document.getElementById("spnTotalPrestamo");
+    cmpTotal.innerText = totalPagar.toFixed(2);
+
+    let cuota;
+
+    cuota = calcularCuotaMensual(totalPagar, plazo);
+
+    let cmpCuota = document.getElementById("spnCuotaMensual");
+    cmpCuota.innerText = cuota.toFixed(2);
 
 }
