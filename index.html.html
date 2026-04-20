@@ -13,23 +13,28 @@
 
         <h2>Datos financieros</h2>
         <label for="txtIngresos">Ingresos:</label>
-        <input type="text" id="txtIngresos">
+        <input type="text" id="txtIngresos" onblur="validarCampo('txtIngresos','errorIngresos',0,99999)">
+        <div id="errorIngresos" class="error"></div>
 
         <label for="txtEgresos">Egresos:</label>
-        <input type="text" id="txtEgresos">
+        <input type="text" id="txtEgresos" onblur="validarCampo('txtEgresos','errorEgresos',0,99999)">
+        <div id="errorEgresos" class="error"></div>
 
         <p>Disponible: <span id="spnDisponible"></span></p>
         <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
 
         <h2>Solicitud de crédito</h2>
         <label for="txtMonto">Monto:</label>
-        <input type="text" id="txtMonto">
+        <input type="text" id="txtMonto" onblur="validarCampo('txtMonto','errorMonto',100,50000)">
+        <div id="errorMonto" class="error"></div>
 
         <label for="txtPlazo">Plazo en años:</label>
-        <input type="text" id="txtPlazo">
+        <input type="text" id="txtPlazo" onblur="validarCampo('txtPlazo','errorPlazo',1,30)">
+        <div id="errorPlazo" class="error"></div>
 
         <label for="txtTasaInteres">Tasa de interés:</label>
-        <input type="text" id="txtTasaInteres">
+        <input type="text" id="txtTasaInteres"onblur="validarCampo('txtTasaInteres','errorTasaInteres',1,100)">
+        <div id="errorTasaInteres" class="error"></div>
 
         <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
         <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>

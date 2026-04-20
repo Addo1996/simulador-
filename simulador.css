@@ -69,6 +69,15 @@ input {
     outline: none;
 }
 
+
+.error {
+    color: red;
+    font-style: inherit;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
+
 input:focus {
     border-color: #2563eb;
 }

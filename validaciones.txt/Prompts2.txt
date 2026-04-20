@@ -1,0 +1,28 @@
+Prompt 1:
+Actúa como un desarrollador frontend profesional.
+Agrega validaciones a un formulario de simulador de crédito.
+
+Requisitos:
+- Validar campos obligatorios
+- Solo permitir números
+- Validar rangos mínimos y máximos
+- Mostrar errores debajo de cada input
+- No usar alert
+- No modificar IDs existentes
+
+Prompt 2:
+Mejora la validación del formulario agregando reglas de negocio:
+
+- Ingresos y egresos: mínimo 0, máximo 99999
+- Monto del crédito: mínimo 100, máximo 50000
+- Plazo: entre 1 y 30 años
+- Tasa de interés: entre 1% y 100%
+
+Mostrar mensajes claros debajo de cada campo.
+
+Prompt 3:
+Optimiza la experiencia del usuario en validaciones:
+
+- Mostrar mensajes en rojo e itálica
+- Validar al presionar el botón calcular
+- Mantener código limpio y reutilizable
