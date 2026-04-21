@@ -3,51 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Crédito</title>
+    <title>Banco Andino - Simulador de Crédito</title>
     <link rel="stylesheet" href="simulador.css">
 </head>
 <body>
 
     <div class="container">
+        <div style="text-align: center; margin-bottom: 15px;">
+            <img src="https://via.placeholder.com/200x60?text=BANCO+ANDINO" alt="Logo Banco Andino" style="max-width: 100%;">
+        </div>
+
         <h1>Banco Andino - Simulador de Crédito</h1>
 
         <h2>Datos financieros</h2>
-        <label for="txtIngresos">Ingresos:</label>
+        <label for="txtIngresos">Ingresos Mensuales:</label>
         <input type="text" id="txtIngresos" onblur="validarCampo('txtIngresos','errorIngresos',0,99999)">
         <div id="errorIngresos" class="error"></div>
 
-        <label for="txtEgresos">Egresos:</label>
-        <input type="text" id="txtEgresos" onblur="validarCampo('txtEgresos','errorEgresos',0,99999)">
-        <div id="errorEgresos" class="error"></div>
+        <label for="txtArriendo">Gasto de Arriendo:</label>
+        <input type="text" id="txtArriendo" onblur="validarCampo('txtArriendo','errorArriendo',0,99999)">
+        <div id="errorArriendo" class="error"></div>
 
-        <p>Disponible: <span id="spnDisponible"></span></p>
-        <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
+        <label for="txtAlimentacion">Gasto de Alimentación:</label>
+        <input type="text" id="txtAlimentacion" onblur="validarCampo('txtAlimentacion','errorAlimentacion',0,99999)">
+        <div id="errorAlimentacion" class="error"></div>
+
+        <label for="txtVarios">Gastos Varios:</label>
+        <input type="text" id="txtVarios" onblur="validarCampo('txtVarios','errorVarios',0,99999)">
+        <div id="errorVarios" class="error"></div>
+
+        <p>Total Gastos: $<span id="spnTotalGastos">0.00</span></p>
+        <p>Monto Disponible: $<span id="spnDisponible">0.00</span></p>
+        <p>Capacidad de pago mensual: $<span id="spnCapacidadPago">0.00</span></p>
 
         <h2>Solicitud de crédito</h2>
-        <label for="txtMonto">Monto:</label>
+        <label for="txtMonto">Monto del Préstamo:</label>
         <input type="text" id="txtMonto" onblur="validarCampo('txtMonto','errorMonto',100,50000)">
         <div id="errorMonto" class="error"></div>
 
-        <label for="txtPlazo">Plazo en años:</label>
+        <label for="txtPlazo">Plazo (Años):</label>
         <input type="text" id="txtPlazo" onblur="validarCampo('txtPlazo','errorPlazo',1,30)">
         <div id="errorPlazo" class="error"></div>
 
-        <label for="txtTasaInteres">Tasa de interés:</label>
-        <input type="text" id="txtTasaInteres"onblur="validarCampo('txtTasaInteres','errorTasaInteres',1,100)">
+        <label for="txtTasaInteres">Tasa de Interés (%):</label>
+        <input type="text" id="txtTasaInteres" onblur="validarCampo('txtTasaInteres','errorTasaInteres',1,100)">
         <div id="errorTasaInteres" class="error"></div>
 
-        <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
-        <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>
-        <p>Cuota mensual: <span id="spnCuotaMensual"></span></p>
+        <p>Interés a pagar: $<span id="spnInteresPagar">0.00</span></p>
+        <p>Total préstamo: $<span id="spnTotalPrestamo">0.00</span></p>
+        <p>Cuota mensual: $<span id="spnCuotaMensual">0.00</span></p>
         <p>Estado de crédito: <span id="spnEstadoCredito">ANALIZANDO...</span></p>
 
         <div class="buttons">
             <button id="btnCalcularCredito" onclick="calcular();">Calcular Crédito</button>
             <button id="btnReiniciar" onclick="reiniciar();">Reiniciar</button>
         </div>
-    </div>
-    <script src="simulador.js"></script>
-    <script src="funciones.js"></script>
 
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="index.html" style="text-decoration: none; color: #2563eb; font-weight: bold;">← Volver al Inicio</a>
+        </div>
+    </div>
+
+    <script src="funciones.js"></script>
+    <script src="simulador.js"></script>
 </body>
 </html>

@@ -1,145 +1,90 @@
-//AQUI EL JAVASCRIPT PARA MANIPULAR EL HTML
-function calcular(){
+function calcular() {
+    // 1. VALIDACIONES (Incluye los nuevos campos y previene valores negativos)
     if (
-        !validarCampo('txtIngresos','errorIngresos', 0, 99999) ||
-        !validarCampo('txtEgresos','errorEgresos', 0, 99999) ||
-        !validarCampo('txtMonto','errorMonto', 100, 50000) ||
-        !validarCampo('txtPlazo','errorPlazo', 1, 30) ||
-        !validarCampo('txtTasaInteres','errorTasaInteres', 1, 100)
+        !validarCampo('txtIngresos', 'errorIngresos', 0, 99999) ||
+        !validarCampo('txtArriendo', 'errorArriendo', 0, 99999) ||
+        !validarCampo('txtAlimentacion', 'errorAlimentacion', 0, 99999) ||
+        !validarCampo('txtVarios', 'errorVarios', 0, 99999) ||
+        !validarCampo('txtMonto', 'errorMonto', 100, 50000) ||
+        !validarCampo('txtPlazo', 'errorPlazo', 1, 30) ||
+        !validarCampo('txtTasaInteres', 'errorTasaInteres', 1, 100)
     ) {
         return;
     }
 
-    let ingresosFloat=0;
-    let egresosFloat=0;
-    let cmpIngresosFloat;
-    let cmpEgresosFloat;
-    let total;
-    let valorDisponibleFloat;
+    // 2. CAPTURA DE DATOS
+    let ingresos = parseFloat(document.getElementById("txtIngresos").value) || 0;
+    let arriendo = parseFloat(document.getElementById("txtArriendo").value) || 0;
+    let alimentacion = parseFloat(document.getElementById("txtAlimentacion").value) || 0;
+    let varios = parseFloat(document.getElementById("txtVarios").value) || 0;
 
-    cmpIngresosFloat=document.getElementById("txtIngresos");
-    cmpEgresosFloat=document.getElementById("txtEgresos");
+    // 3. SUMA DE GASTOS (Punto requerido 3.3)
+    let totalEgresos = arriendo + alimentacion + varios;
+    document.getElementById("spnTotalGastos").innerText = totalEgresos.toFixed(2);
 
-    ingresosFloat=parseFloat(cmpIngresosFloat.value);
-    egresosFloat=parseFloat(cmpEgresosFloat.value);
+    // 4. RESTO DE CÁLCULOS (Se mantienen igual)
+    let valorDisponible = calcularDisponible(ingresos, totalEgresos);
+    document.getElementById("spnDisponible").innerText = valorDisponible.toFixed(2);
 
-    valorDisponibleFloat=calcularDisponible(ingresosFloat,egresosFloat);
+    let capacidad = calcularCapacidadPago(valorDisponible);
+    document.getElementById("spnCapacidadPago").innerText = capacidad.toFixed(2);
 
-    total=document.getElementById("spnDisponible");
-    total.innerText = valorDisponibleFloat.toFixed(2); // ✅ AQUÍ EL CAMBIO
+    let monto = parseFloat(document.getElementById("txtMonto").value);
+    let plazo = parseFloat(document.getElementById("txtPlazo").value);
+    let tasa = parseFloat(document.getElementById("txtTasaInteres").value);
 
-    let capacidadPago;
-    capacidadPago = calcularCapacidadPago(valorDisponibleFloat);
+    let interes = calcularInteresSimple(monto, tasa, plazo);
+    document.getElementById("spnInteresPagar").innerText = interes.toFixed(2);
 
-    let cmpCapacidad = document.getElementById("spnCapacidadPago");
-    cmpCapacidad.innerText = capacidadPago.toFixed(2);
+    let totalPagar = calcularTotalPagar(monto, interes);
+    document.getElementById("spnTotalPrestamo").innerText = totalPagar.toFixed(2);
 
-    let monto, plazo, tasa;
+    let cuota = calcularCuotaMensual(totalPagar, plazo);
+    document.getElementById("spnCuotaMensual").innerText = cuota.toFixed(2);
 
-    let cmpMonto = document.getElementById("txtMonto");
-    let cmpPlazo = document.getElementById("txtPlazo");
-    let cmpTasa = document.getElementById("txtTasaInteres");
-
-    monto=parseFloat(cmpMonto.value);
-    plazo=parseFloat(cmpPlazo.value);
-    tasa=parseFloat(cmpTasa.value);
-
-    let interes;
-    interes = calcularInteresSimple(monto, tasa, plazo);
-
-    let cmpInteres = document.getElementById("spnInteresPagar");
-    cmpInteres.innerText = interes.toFixed(2);
-
-    let totalPagar;
-    totalPagar = calcularTotalPagar(monto, interes);
-
-    let cmpTotal = document.getElementById("spnTotalPrestamo");
-    cmpTotal.innerText = totalPagar.toFixed(2);
-
-    let cuota;
-    cuota = calcularCuotaMensual(totalPagar, plazo);
-
-    let cmpCuota = document.getElementById("spnCuotaMensual");
-    cmpCuota.innerText = cuota.toFixed(2);
-
-    let aprobado;
-    aprobado = aprobarCredito(capacidadPago, cuota);
-
-    let cmpEstado = document.getElementById("spnEstadoCredito");
-
-    if (aprobado){
-        cmpEstado.innerText = "CRÉDITO APROBADO";
-        cmpEstado.style.color = "green";
+    let aprobado = aprobarCredito(capacidad, cuota);
+    let spnEstado = document.getElementById("spnEstadoCredito");
+    
+    if (aprobado) {
+        spnEstado.innerText = "CRÉDITO APROBADO";
+        spnEstado.style.color = "green";
     } else {
-        cmpEstado.innerText = "CRÉDITO RECHAZADO";
-        cmpEstado.style.color = "red";
+        spnEstado.innerText = "CRÉDITO RECHAZADO";
+        spnEstado.style.color = "red";
     }
 }
 
-function reiniciar(){
-    // limpiar inputs
-    document.getElementById("txtIngresos").value = "";
-    document.getElementById("txtEgresos").value = "";
-    document.getElementById("txtMonto").value = "";
-    document.getElementById("txtPlazo").value = "";
-    document.getElementById("txtTasaInteres").value = "";
+function reiniciar() {
+    const ids = ["txtIngresos", "txtArriendo", "txtAlimentacion", "txtVarios", "txtMonto", "txtPlazo", "txtTasaInteres"];
+    ids.forEach(id => {
+        document.getElementById(id).value = "";
+        document.getElementById(id).classList.remove("error-input");
+    });
 
-    // limpiar resultados
-    document.getElementById("spnDisponible").innerText = "";
-    document.getElementById("spnCapacidadPago").innerText = "";
-    document.getElementById("spnInteresPagar").innerText = "";
-    document.getElementById("spnTotalPrestamo").innerText = "";
-    document.getElementById("spnCuotaMensual").innerText = "";
+    const errores = ["errorIngresos", "errorArriendo", "errorAlimentacion", "errorVarios", "errorMonto", "errorPlazo", "errorTasaInteres"];
+    errores.forEach(id => document.getElementById(id).textContent = "");
+
+    document.getElementById("spnTotalGastos").innerText = "0.00";
+    document.getElementById("spnDisponible").innerText = "0.00";
+    document.getElementById("spnCapacidadPago").innerText = "0.00";
+    document.getElementById("spnInteresPagar").innerText = "0.00";
+    document.getElementById("spnTotalPrestamo").innerText = "0.00";
+    document.getElementById("spnCuotaMensual").innerText = "0.00";
     document.getElementById("spnEstadoCredito").innerText = "ANALIZANDO...";
-
-    // limpiar errores
-    document.getElementById("errorIngresos").textContent = "";
-    document.getElementById("errorEgresos").textContent = "";
-    document.getElementById("errorMonto").textContent = "";
-    document.getElementById("errorPlazo").textContent = "";
-    document.getElementById("errorTasaInteres").textContent = "";
-
-    // quitar estilos de error
-    document.getElementById("txtIngresos").classList.remove("error-input");
-    document.getElementById("txtEgresos").classList.remove("error-input");
-    document.getElementById("txtMonto").classList.remove("error-input");
-    document.getElementById("txtPlazo").classList.remove("error-input");
-    document.getElementById("txtTasaInteres").classList.remove("error-input");
+    document.getElementById("spnEstadoCredito").style.color = "black";
 }
 
 function validarCampo(idInput, idError, min, max) {
     let input = document.getElementById(idInput);
     let valor = input.value.trim();
     let error = document.getElementById(idError);
-
     input.classList.remove("error-input");
 
-    if (valor === "") {
-        error.textContent = "Campo obligatorio";
+    if (valor === "" || isNaN(valor) || parseFloat(valor) < min || parseFloat(valor) > max) {
+        error.textContent = "Dato inválido";
         input.classList.add("error-input");
         return false;
     }
-
-    if (!/^\d+(\.\d+)?$/.test(valor)) {
-        error.textContent = "Solo números";
-        input.classList.add("error-input");
-        return false;
-    }
-
-    let numero = parseFloat(valor);
-
-    if (numero < min) {
-        error.textContent = `Mínimo: ${min}`;
-        input.classList.add("error-input");
-        return false;
-    }
-
-    if (numero > max) {
-        error.textContent = `Máximo: ${max}`;
-        input.classList.add("error-input");
-        return false;
-    }
-
     error.textContent = "";
     return true;
 }
