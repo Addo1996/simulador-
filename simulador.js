@@ -1,5 +1,5 @@
 function calcular() {
-    // 1. VALIDACIONES (Incluye los nuevos campos y previene valores negativos)
+    // 1. VALIDACIONES: Ahora incluimos los 3 nuevos campos
     if (
         !validarCampo('txtIngresos', 'errorIngresos', 0, 99999) ||
         !validarCampo('txtArriendo', 'errorArriendo', 0, 99999) ||
@@ -18,17 +18,18 @@ function calcular() {
     let alimentacion = parseFloat(document.getElementById("txtAlimentacion").value) || 0;
     let varios = parseFloat(document.getElementById("txtVarios").value) || 0;
 
-    // 3. SUMA DE GASTOS (Punto requerido 3.3)
+    // 3. SUMA DE GASTOS (Requisito fundamental)
     let totalEgresos = arriendo + alimentacion + varios;
     document.getElementById("spnTotalGastos").innerText = totalEgresos.toFixed(2);
 
-    // 4. RESTO DE CÁLCULOS (Se mantienen igual)
+    // 4. CÁLCULOS FINANCIEROS (Usando tus funciones de funciones.js)
     let valorDisponible = calcularDisponible(ingresos, totalEgresos);
     document.getElementById("spnDisponible").innerText = valorDisponible.toFixed(2);
 
     let capacidad = calcularCapacidadPago(valorDisponible);
     document.getElementById("spnCapacidadPago").innerText = capacidad.toFixed(2);
 
+    // Datos del préstamo
     let monto = parseFloat(document.getElementById("txtMonto").value);
     let plazo = parseFloat(document.getElementById("txtPlazo").value);
     let tasa = parseFloat(document.getElementById("txtTasaInteres").value);
@@ -42,9 +43,9 @@ function calcular() {
     let cuota = calcularCuotaMensual(totalPagar, plazo);
     document.getElementById("spnCuotaMensual").innerText = cuota.toFixed(2);
 
+    // 5. APROBACIÓN
     let aprobado = aprobarCredito(capacidad, cuota);
     let spnEstado = document.getElementById("spnEstadoCredito");
-    
     if (aprobado) {
         spnEstado.innerText = "CRÉDITO APROBADO";
         spnEstado.style.color = "green";
@@ -55,6 +56,7 @@ function calcular() {
 }
 
 function reiniciar() {
+    // Limpieza de todos los campos nuevos y viejos
     const ids = ["txtIngresos", "txtArriendo", "txtAlimentacion", "txtVarios", "txtMonto", "txtPlazo", "txtTasaInteres"];
     ids.forEach(id => {
         document.getElementById(id).value = "";
@@ -64,6 +66,7 @@ function reiniciar() {
     const errores = ["errorIngresos", "errorArriendo", "errorAlimentacion", "errorVarios", "errorMonto", "errorPlazo", "errorTasaInteres"];
     errores.forEach(id => document.getElementById(id).textContent = "");
 
+    // Resetear resultados
     document.getElementById("spnTotalGastos").innerText = "0.00";
     document.getElementById("spnDisponible").innerText = "0.00";
     document.getElementById("spnCapacidadPago").innerText = "0.00";
